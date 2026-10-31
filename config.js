@@ -15,9 +15,9 @@ window.STORE_CONFIG = {
   email: "admin@silverwolf.in",
   siteUrl: "https://silverwolf.in",
   // [PLACEHOLDER] WhatsApp digits only, country code included (e.g. 919876543210). Leave empty to hide WhatsApp send.
-  whatsappNumber: "" /* [PLACEHOLDER] */,
+  whatsappNumber: "917034959462",
   // [PLACEHOLDER] Optional public phone display string
-  phoneDisplay: "" /* [PLACEHOLDER] */,
+  phoneDisplay: "+91 70349 59462",
   // [PLACEHOLDER] Optional Instagram handle without @
   instagram: "" /* [PLACEHOLDER] */,
   // [PLACEHOLDER] Stall / studio location line if you want it shown

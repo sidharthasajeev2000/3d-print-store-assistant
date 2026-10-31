@@ -2,134 +2,158 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta
-      name="description"
-      content="Silverwolf customer desk — chat with the store assistant for 3D print quotes while the owner helps another customer."
-    />
-    <title>Silverwolf · Customer desk</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="description" content="Chat with Silver — Silverwolf's 3D-printing assistant mascot." />
+    <meta name="theme-color" content="#0b0d12" />
+    <title>Silver · Silverwolf</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="bg-grid" aria-hidden="true"></div>
+    <div class="stage" data-testid="stage">
+      <button
+        type="button"
+        class="mute-toggle"
+        id="muteToggle"
+        aria-pressed="false"
+        aria-label="Mute voice"
+        title="Mute / unmute"
+        data-testid="mute-toggle"
+      >
+        <span class="mute-icon" aria-hidden="true">🔊</span>
+      </button>
 
-    <header class="top">
-      <div class="brand">
-        <span class="mark" aria-hidden="true">◆</span>
-        <div>
-          <strong id="shopName">Silverwolf</strong>
-          <span class="muted" id="ownerLine">Run by Sidhartha Mandampilly</span>
+      <div class="mascot-wrap" id="mascotWrap">
+        <div class="bubble-stack" id="bubbleStack" aria-live="polite" data-testid="bubble-stack"></div>
+
+        <div class="mascot" id="mascot" data-state="idle" data-testid="mascot" aria-label="Silver the assistant">
+          <svg class="wolf" viewBox="0 0 240 260" role="img" aria-hidden="true">
+            <defs>
+              <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#c5cbe0" />
+                <stop offset="55%" stop-color="#8b93b0" />
+                <stop offset="100%" stop-color="#5c647e" />
+              </linearGradient>
+              <linearGradient id="belly" x1="0.5" y1="0" x2="0.5" y2="1">
+                <stop offset="0%" stop-color="#f3f0ea" />
+                <stop offset="100%" stop-color="#d9d2c6" />
+              </linearGradient>
+              <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#7c6cff" />
+                <stop offset="100%" stop-color="#3de0c0" />
+              </linearGradient>
+              <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.35" />
+              </filter>
+            </defs>
+
+            <!-- shadow -->
+            <ellipse class="floor-shadow" cx="120" cy="248" rx="62" ry="10" fill="rgba(0,0,0,0.35)" />
+
+            <g class="body-group" filter="url(#soft)">
+              <!-- ears -->
+              <g class="ear ear-l">
+                <path d="M58 78 L42 28 L88 62 Z" fill="url(#fur)" />
+                <path d="M58 72 L48 38 L78 62 Z" fill="#f0a8b8" opacity="0.85" />
+              </g>
+              <g class="ear ear-r">
+                <path d="M182 78 L198 28 L152 62 Z" fill="url(#fur)" />
+                <path d="M182 72 L192 38 L162 62 Z" fill="#f0a8b8" opacity="0.85" />
+              </g>
+
+              <!-- body -->
+              <ellipse cx="120" cy="175" rx="68" ry="58" fill="url(#fur)" />
+              <ellipse cx="120" cy="182" rx="42" ry="38" fill="url(#belly)" />
+
+              <!-- printer badge -->
+              <g class="badge" transform="translate(120 168)">
+                <rect x="-18" y="-12" width="36" height="26" rx="6" fill="url(#accent)" />
+                <rect x="-12" y="-6" width="24" height="3" rx="1" fill="#0b0d12" opacity="0.35" />
+                <rect x="-8" y="2" width="16" height="8" rx="2" fill="#0b0d12" opacity="0.45" />
+                <circle cx="10" cy="-7" r="2.2" fill="#fff" opacity="0.9" />
+              </g>
+
+              <!-- head -->
+              <g class="head">
+                <ellipse cx="120" cy="100" rx="58" ry="52" fill="url(#fur)" />
+                <ellipse cx="120" cy="112" rx="34" ry="28" fill="url(#belly)" />
+
+                <!-- eyes -->
+                <g class="eyes">
+                  <g class="eye eye-l" transform="translate(98 96)">
+                    <ellipse class="eye-white" cx="0" cy="0" rx="11" ry="13" fill="#fff" />
+                    <circle class="pupil" cx="1" cy="2" r="5.5" fill="#1a1f2e" />
+                    <circle class="glint" cx="-2" cy="-2" r="2" fill="#fff" />
+                    <rect class="lid" x="-12" y="-14" width="24" height="14" fill="url(#fur)" />
+                  </g>
+                  <g class="eye eye-r" transform="translate(142 96)">
+                    <ellipse class="eye-white" cx="0" cy="0" rx="11" ry="13" fill="#fff" />
+                    <circle class="pupil" cx="1" cy="2" r="5.5" fill="#1a1f2e" />
+                    <circle class="glint" cx="-2" cy="-2" r="2" fill="#fff" />
+                    <rect class="lid" x="-12" y="-14" width="24" height="14" fill="url(#fur)" />
+                  </g>
+                </g>
+
+                <!-- brows -->
+                <path class="brow brow-l" d="M86 78 Q98 72 108 78" fill="none" stroke="#4a5168" stroke-width="3" stroke-linecap="round" />
+                <path class="brow brow-r" d="M132 78 Q142 72 154 78" fill="none" stroke="#4a5168" stroke-width="3" stroke-linecap="round" />
+
+                <!-- nose -->
+                <ellipse cx="120" cy="118" rx="10" ry="7" fill="#2a2f40" />
+                <ellipse cx="117" cy="116" rx="2.5" ry="1.5" fill="#fff" opacity="0.35" />
+
+                <!-- mouth -->
+                <g class="mouth" transform="translate(120 132)">
+                  <path class="mouth-closed" d="M-14 0 Q0 8 14 0" fill="none" stroke="#2a2f40" stroke-width="3" stroke-linecap="round" />
+                  <ellipse class="mouth-open" cx="0" cy="4" rx="12" ry="8" fill="#2a2f40" opacity="0" />
+                  <ellipse class="tongue" cx="0" cy="7" rx="6" ry="3.5" fill="#e87890" opacity="0" />
+                </g>
+              </g>
+
+              <!-- arms -->
+              <g class="arm arm-l">
+                <path d="M62 160 Q40 185 52 210" fill="none" stroke="url(#fur)" stroke-width="16" stroke-linecap="round" />
+                <circle cx="52" cy="212" r="10" fill="#d9d2c6" />
+              </g>
+              <g class="arm arm-r">
+                <path d="M178 160 Q200 185 188 210" fill="none" stroke="url(#fur)" stroke-width="16" stroke-linecap="round" />
+                <circle cx="188" cy="212" r="10" fill="#d9d2c6" />
+              </g>
+            </g>
+          </svg>
+          <p class="mascot-name" id="botNameLabel">Silver</p>
         </div>
       </div>
-      <button type="button" class="btn btn-primary" id="openChat" data-testid="open-chat">
-        Chat with assistant
-      </button>
-    </header>
 
-    <main>
-      <section class="hero">
-        <p class="eyebrow">Customer desk · while we’re busy</p>
-        <h1>
-          Talk to the bot.<br />
-          <em>We’ll follow up</em> when free.
-        </h1>
-        <p class="lead" id="tagline">
-          3D-printed figurines, cosplay props &amp; custom prints
-        </p>
-        <div class="hero-actions">
-          <button type="button" class="btn btn-primary" id="openChatHero" data-testid="open-chat-hero">
-            Start chat
-          </button>
-          <a class="btn btn-ghost" href="https://silverwolf.in" target="_blank" rel="noopener"
-            >Main shop →</a
-          >
-        </div>
-        <ul class="pills" aria-label="Highlights">
-          <li>FAQ answers</li>
-          <li>Quote intake</li>
-          <li>WhatsApp / email handoff</li>
-        </ul>
-      </section>
-
-      <section class="cards" id="info">
-        <article class="card">
-          <h2>Services</h2>
-          <ul class="stack" id="servicesList"></ul>
-        </article>
-        <article class="card">
-          <h2>Materials</h2>
-          <ul class="stack mats" id="materialsList"></ul>
-        </article>
-        <article class="card">
-          <h2>Turnaround &amp; delivery</h2>
-          <p><strong>Ready-made:</strong> <span id="leadReady"></span></p>
-          <p><strong>Custom:</strong> <span id="leadCustom"></span></p>
-          <p id="shipNote" class="muted"></p>
-        </article>
-        <article class="card">
-          <h2>Contact</h2>
-          <div id="contactBlock"></div>
-          <p class="muted small">
-            Prefer chat? Open the assistant — it can collect a quote and open a prefilled message for
-            Sidhartha.
-          </p>
-        </article>
-      </section>
-    </main>
-
-    <footer class="foot">
-      <span>© <span id="year"></span> Silverwolf</span>
-      <span class="muted">Edit <code>config.js</code> to update store details</span>
-    </footer>
-
-    <!-- Chat widget -->
-    <button
-      type="button"
-      class="fab"
-      id="chatFab"
-      aria-label="Open chat"
-      aria-expanded="false"
-      aria-controls="chatPanel"
-      data-testid="chat-fab"
-    >
-      <span class="fab-icon">💬</span>
-    </button>
-
-    <aside
-      class="chat-panel"
-      id="chatPanel"
-      role="dialog"
-      aria-labelledby="botLabel"
-      aria-hidden="true"
-      data-testid="chat-panel"
-    >
-      <header class="chat-head">
-        <div>
-          <strong id="botLabel">Silver</strong>
-          <span class="status"><i></i> Online · hands off to owner</span>
-        </div>
-        <button type="button" class="icon-btn" id="chatClose" aria-label="Close chat">✕</button>
-      </header>
-      <div class="chat-messages" id="chatMessages" data-testid="chat-messages"></div>
-      <div class="quick-replies" id="quickReplies" data-testid="quick-replies"></div>
-      <form class="chat-form" id="chatForm" autocomplete="off">
+      <form class="composer" id="composer" autocomplete="off">
+        <button
+          type="button"
+          class="mic-btn"
+          id="micBtn"
+          aria-label="Speak"
+          title="Speak"
+          data-testid="mic-btn"
+          hidden
+        >
+          🎤
+        </button>
         <input
-          id="chatInput"
+          id="userInput"
           type="text"
           name="message"
-          placeholder="Type a message…"
-          aria-label="Message"
-          data-testid="chat-input"
+          placeholder="Say something…"
+          aria-label="Message to Silver"
+          enterkeyhint="send"
+          data-testid="user-input"
         />
-        <button type="submit" class="btn btn-primary send" data-testid="chat-send">Send</button>
+        <button type="submit" class="send-btn" data-testid="send-btn" aria-label="Send">➤</button>
       </form>
-    </aside>
+    </div>
 
     <script src="config.js"></script>
     <script src="bot.js"></script>

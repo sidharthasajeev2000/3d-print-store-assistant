@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Silverwolf customer desk — chat with the store assistant for 3D print quotes while the owner helps another customer."
+    />
+    <title>Silverwolf · Customer desk</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Syne:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="bg-grid" aria-hidden="true"></div>
+
+    <header class="top">
+      <div class="brand">
+        <span class="mark" aria-hidden="true">◆</span>
+        <div>
+          <strong id="shopName">Silverwolf</strong>
+          <span class="muted" id="ownerLine">Run by Sidhartha Mandampilly</span>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" id="openChat" data-testid="open-chat">
+        Chat with assistant
+      </button>
+    </header>
+
+    <main>
+      <section class="hero">
+        <p class="eyebrow">Customer desk · while we’re busy</p>
+        <h1>
+          Talk to the bot.<br />
+          <em>We’ll follow up</em> when free.
+        </h1>
+        <p class="lead" id="tagline">
+          3D-printed figurines, cosplay props &amp; custom prints
+        </p>
+        <div class="hero-actions">
+          <button type="button" class="btn btn-primary" id="openChatHero" data-testid="open-chat-hero">
+            Start chat
+          </button>
+          <a class="btn btn-ghost" href="https://silverwolf.in" target="_blank" rel="noopener"
+            >Main shop →</a
+          >
+        </div>
+        <ul class="pills" aria-label="Highlights">
+          <li>FAQ answers</li>
+          <li>Quote intake</li>
+          <li>WhatsApp / email handoff</li>
+        </ul>
+      </section>
+
+      <section class="cards" id="info">
+        <article class="card">
+          <h2>Services</h2>
+          <ul class="stack" id="servicesList"></ul>
+        </article>
+        <article class="card">
+          <h2>Materials</h2>
+          <ul class="stack mats" id="materialsList"></ul>
+        </article>
+        <article class="card">
+          <h2>Turnaround &amp; delivery</h2>
+          <p><strong>Ready-made:</strong> <span id="leadReady"></span></p>
+          <p><strong>Custom:</strong> <span id="leadCustom"></span></p>
+          <p id="shipNote" class="muted"></p>
+        </article>
+        <article class="card">
+          <h2>Contact</h2>
+          <div id="contactBlock"></div>
+          <p class="muted small">
+            Prefer chat? Open the assistant — it can collect a quote and open a prefilled message for
+            Sidhartha.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>© <span id="year"></span> Silverwolf</span>
+      <span class="muted">Edit <code>config.js</code> to update store details</span>
+    </footer>
+
+    <!-- Chat widget -->
+    <button
+      type="button"
+      class="fab"
+      id="chatFab"
+      aria-label="Open chat"
+      aria-expanded="false"
+      aria-controls="chatPanel"
+      data-testid="chat-fab"
+    >
+      <span class="fab-icon">💬</span>
+    </button>
+
+    <aside
+      class="chat-panel"
+      id="chatPanel"
+      role="dialog"
+      aria-labelledby="botLabel"
+      aria-hidden="true"
+      data-testid="chat-panel"
+    >
+      <header class="chat-head">
+        <div>
+          <strong id="botLabel">Silver</strong>
+          <span class="status"><i></i> Online · hands off to owner</span>
+        </div>
+        <button type="button" class="icon-btn" id="chatClose" aria-label="Close chat">✕</button>
+      </header>
+      <div class="chat-messages" id="chatMessages" data-testid="chat-messages"></div>
+      <div class="quick-replies" id="quickReplies" data-testid="quick-replies"></div>
+      <form class="chat-form" id="chatForm" autocomplete="off">
+        <input
+          id="chatInput"
+          type="text"
+          name="message"
+          placeholder="Type a message…"
+          aria-label="Message"
+          data-testid="chat-input"
+        />
+        <button type="submit" class="btn btn-primary send" data-testid="chat-send">Send</button>
+      </form>
+    </aside>
+
+    <script src="config.js"></script>
+    <script src="bot.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
